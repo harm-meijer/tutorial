@@ -1,3 +1,3 @@
-export const selectCount = (state) => {
+export const selectCounter = (state) => {
   //@todo: implement selector
 };

@@ -1,11 +1,13 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { down, reset, up } from "../actions";
-import { selectCount } from "../selectors";
+import { selectCounter } from "../selectors";
 
 const Counter = memo(function Counter() {
+  //@todo: for multiple counters something needs to change here
+  //@todo: implement removing a counter here
   const dispatch = useDispatch();
-  const count = useSelector(selectCount);
+  const count = useSelector(selectCounter);
   const upClicked = () => dispatch(up());
   const downClicked = () => dispatch(down());
   const resetClicked = () => dispatch(reset());

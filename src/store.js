@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { DOWN, RESET, UP } from "./actions";
+import { ADD, DOWN, REMOVE, RESET, UP } from "./actions";
 const initialState = {
   count: 0,
 };
@@ -14,6 +14,12 @@ const store = createStore(
     }
     if (type === RESET) {
       //@todo: implement reset
+    }
+    if (type === ADD) {
+      //@todo: implement adding a counter
+    }
+    if (type === REMOVE) {
+      //@todo: implement removing a counter
     }
     return { ...state };
   },
