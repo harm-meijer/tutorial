@@ -1,17 +1,8 @@
-import { useDispatch } from "react-redux";
-import { add } from "./actions";
-import Counter from "./components/Counter";
+import Item from "./components/Item";
 
 function App() {
-  const dispatch = useDispatch();
-  const addClicked = () => dispatch(add());
-  return (
-    <div>
-      <button onClick={addClicked}>Add Counter</button>
-      <hr />
-      {/* @todo: display a list of counters */}
-    </div>
-  );
+  //@todo: select root items and display tree
+  return <div></div>;
 }
 
 export default App;

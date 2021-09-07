@@ -1,26 +1,16 @@
 import { createStore } from "redux";
-import { ADD, DOWN, REMOVE, RESET, UP } from "./actions";
 const initialState = {
-  count: 0,
+  items: [
+    { id: 1, value: "root one" },
+    { id: 2, value: "root two" },
+    { id: 3, value: "Child of one", parent: 1 },
+  ],
 };
 
 const store = createStore(
   (state = initialState, { type }) => {
-    if (type === UP) {
-      //@todo: implement up
-    }
-    if (type === DOWN) {
-      //@todo: implement down
-    }
-    if (type === RESET) {
-      //@todo: implement reset
-    }
-    if (type === ADD) {
-      //@todo: implement adding a counter
-    }
-    if (type === REMOVE) {
-      //@todo: implement removing a counter
-    }
+    //@todo: implement adding or removing a child to
+    //  tree
     return { ...state };
   },
   initialState,
