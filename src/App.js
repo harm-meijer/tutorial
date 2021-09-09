@@ -1,24 +1,16 @@
 import React from "react";
-import Counter from "./components/Counter";
+import AutoCounter from "./components/AutoCounter";
 
 function App() {
-  const [counter, setCounter] = React.useState(1);
-  const [message, setMessage] = React.useState(
-    "initial message"
-  );
-  //@todo: fix this function
-  const up = React.useCallback(
-    () => setCounter((current) => current + 1),
-    []
-  );
+  const [show, setShow] = React.useState(true);
   return (
     <>
-      <div>message:{message}</div>
-      <Counter
-        up={up}
-        setMessage={setMessage}
-        counter={counter}
-      />
+      <div>
+        <button onClick={() => setShow((show) => !show)}>
+          toggle auto counter
+        </button>
+      </div>
+      {show && <AutoCounter />}
     </>
   );
 }
