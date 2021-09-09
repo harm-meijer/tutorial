@@ -1,16 +1,24 @@
 import React from "react";
+import Counter from "./components/Counter";
 
 function App() {
   const [counter, setCounter] = React.useState(1);
+  const [message, setMessage] = React.useState(
+    "initial message"
+  );
   //@todo: fix this function
   const up = React.useCallback(
-    () => setCounter(counter + 1),
+    () => setCounter((current) => current + 1),
     []
   );
   return (
     <>
-      counter:{counter}
-      <button onClick={up}>UP</button>
+      <div>message:{message}</div>
+      <Counter
+        up={up}
+        setMessage={setMessage}
+        counter={counter}
+      />
     </>
   );
 }
