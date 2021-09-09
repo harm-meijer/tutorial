@@ -1,15 +1,17 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { showCounter } from "../helpers";
+import Counter from "./Timer";
+import TimerButton from "./TimerButton";
 const AutoCounter = React.memo(function AutoCounter() {
-  const [counter, setCounter] = React.useState(0);
-  //@todo: increment counter every second on mount
-  React.useEffect(() => {
-    const clear = setInterval(
-      () => setCounter((counter) => counter + 1),
-      1000
-    );
-    // return () => clearInterval(clear);
-  }, []);
-  return <div>counter:{counter}</div>;
+  const [timer, setTimer] = useState({
+    start: false,
+    stop: false,
+  });
+  return (
+    <div>
+      <TimerButton timer={timer} setter={setTimer} />
+      {showCounter(timer) ? <Counter {...timer} /> : ""}
+    </div>
+  );
 });
 export default AutoCounter;
