@@ -1,18 +1,30 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../actions";
-import { selectItem } from "../selectors";
+import { createSelectItemById } from "../selectors";
 
-const Item = memo(function ItemComponent() {
+const Item = memo(function ItemComponent({ id }) {
+  console.log(`Item ${id} returning jsx`);
   const dispatch = useDispatch();
-  const addClicked = () => dispatch(add());
-  const removeClicked = () => dispatch(remove());
+  const addClicked = () => dispatch(add(id));
+  const selectItem = React.useMemo(
+    () => createSelectItemById(id),
+    [id]
+  );
+  const item = useSelector(selectItem);
+  const removeClicked = () =>
+    dispatch(remove(item.id, item.parentId));
   return (
-    <div>
-      <button onClick={addClicked}>up</button>
-      <button onClick={removeClicked}>down</button>
-      {/* @todo: show child items */}
-    </div>
+    <li>
+      <button onClick={addClicked}>Add</button>
+      <button onClick={removeClicked}>Remove</button>
+      {item.value}
+      <ul>
+        {item.children.map(({ id }) => (
+          <Item key={id} id={id} />
+        ))}
+      </ul>
+    </li>
   );
 });
 export default Item;
