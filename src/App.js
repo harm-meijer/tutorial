@@ -4,15 +4,13 @@ import Item from "./components/Item";
 import { createSelectItemById } from "./selectors";
 
 function App() {
-  const selectRootItems = React.useMemo(
-    () => createSelectItemById("root"),
-    []
+  const rootItem = useSelector(
+    createSelectItemById("root")
   );
-  const rootItem = useSelector(selectRootItems);
   return (
     <ul>
-      {rootItem.children.map(({ id }) => (
-        <Item key={id} id={id} />
+      {rootItem.children.map((id) => (
+        <Item key={id} itemId={id} parentId="root" />
       ))}
     </ul>
   );

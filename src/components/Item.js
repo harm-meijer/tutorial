@@ -3,25 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../actions";
 import { createSelectItemById } from "../selectors";
 
-const Item = memo(function ItemComponent({ id }) {
-  console.log(`Item ${id} returning jsx`);
+const Item = memo(function ItemComponent({
+  itemId,
+  parentId,
+}) {
+  console.log(`Item ${itemId} returning jsx`);
   const dispatch = useDispatch();
-  const addClicked = () => dispatch(add(id));
-  const selectItem = React.useMemo(
-    () => createSelectItemById(id),
-    [id]
-  );
-  const item = useSelector(selectItem);
+  const addClicked = () => dispatch(add(itemId));
+  const item = useSelector(createSelectItemById(itemId));
   const removeClicked = () =>
-    dispatch(remove(item.id, item.parentId));
+    dispatch(remove(itemId, parentId));
   return (
     <li>
       <button onClick={addClicked}>Add</button>
       <button onClick={removeClicked}>Remove</button>
       {item.value}
       <ul>
-        {item.children.map(({ id }) => (
-          <Item key={id} id={id} />
+        {item.children.map((id) => (
+          <Item key={id} itemId={id} parentId={itemId} />
         ))}
       </ul>
     </li>
