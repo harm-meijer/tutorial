@@ -1,10 +1,13 @@
 import { createStore } from "redux";
+
 const initialState = {
-  items: [
-    { id: 1, value: "root one" },
-    { id: 2, value: "root two" },
-    { id: 3, value: "Child of one", parent: 1 },
-  ],
+  //turn it into object, to make it less expensive when searching
+  //Array.find is more expensive than obj[id]
+  items: {
+    root: { id: "root", children: [1, 2] },
+    1: { id: 1, value: "root one", children: [] },
+    2: { id: 2, value: "root two", children: [] },
+  },
 };
 
 const store = createStore(
@@ -14,8 +17,7 @@ const store = createStore(
     return { ...state };
   },
   initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default store;

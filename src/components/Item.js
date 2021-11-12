@@ -1,9 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../actions";
-import { selectItem } from "../selectors";
+import { createSelectItemById } from "../selectors";
 
-const Item = memo(function ItemComponent() {
+const Item = memo(function ItemComponent({ itemId }) {
+  const selectItemById = useMemo(() => createSelectItemById(itemId), [itemId]);
+  const item = useSelector(selectItemById);
+  console.log(item.value);
   const dispatch = useDispatch();
   const addClicked = () => dispatch(add());
   const removeClicked = () => dispatch(remove());
@@ -12,6 +15,7 @@ const Item = memo(function ItemComponent() {
       <button onClick={addClicked}>up</button>
       <button onClick={removeClicked}>down</button>
       {/* @todo: show child items */}
+      {item.value}
     </div>
   );
 });
