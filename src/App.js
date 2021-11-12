@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import Item from "./components/Item";
-import { createSelectItemById, selectItem } from "./selectors";
+import { createSelectItemById } from "./selectors";
 
 function App() {
   //@todo: select root items and display tree
   //If ou use like this, it wil create the selector every time:
   // const rootItems = createSelectItemById ('root')
-  //Insted, for memoization it's possible to use a hook, like this:
+  //Insted, for memoization it's possible to use useMemo
 
   const selectRootItem = useMemo(() => createSelectItemById("root"), []);
 
