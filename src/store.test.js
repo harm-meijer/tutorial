@@ -48,13 +48,15 @@ const testState = {
   },
   root: { id: "root", value: "root", children: [1] },
 };
-it("removes all decendents", () => {
-  expect(getDecedents(2, testState)).toEqual([
+it("removes all decedents", () => {
+  expect(getDecedents(2, testState).sort()).toEqual([
     3, 4, 5, 6, 7, 8, 9,
   ]);
-  expect(getDecedents(8, testState)).toEqual([9]);
-  expect(getDecedents(5, testState)).toEqual([6, 7, 8, 9]);
-  expect(getDecedents(9, testState)).toEqual([]);
+  expect(getDecedents(8, testState).sort()).toEqual([9]);
+  expect(getDecedents(5, testState).sort()).toEqual([
+    6, 7, 8, 9,
+  ]);
+  expect(getDecedents(9, testState).sort()).toEqual([]);
 
   // act(() => {
   //   render(<Hello />, container);
