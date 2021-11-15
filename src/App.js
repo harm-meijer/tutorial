@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       {rootItem.children.map(({ id }) => (
-        <Item key={id} itemId={id} />
+        <Item key={id} itemId={id} parentId="root" />
       ))}
     </div>
   );
