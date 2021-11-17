@@ -49,6 +49,8 @@ const testState = {
   root: { id: "root", value: "root", children: [1] },
 };
 it("removes all decedents", () => {
+  console.log("returns:", getDecedents(2, testState));
+  // return;
   expect(getDecedents(2, testState).sort()).toEqual([3, 4, 5, 6, 7, 8, 9]);
   expect(getDecedents(8, testState).sort()).toEqual([9]);
   expect(getDecedents(5, testState).sort()).toEqual([6, 7, 8, 9]);

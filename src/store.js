@@ -16,11 +16,15 @@ const createId = (items) =>
       .map((key) => Number(key))
       .filter((id) => !isNaN(id))
   ) + 1;
-let protect = 0;
-
 export const getDecedents = (id, items) => {
-  //@todo: use Array.prototype.reduce instead
-  const childrenOfItem = items[id].children;
+  const recur = (acc, id) => {
+    acc.push(...items[id].children);
+    items[id].children.forEach((childId) => {
+      recur(acc, childId);
+    });
+    return acc;
+  };
+  return recur([], id);
 };
 
 /**export const getDecedents = (id, items) => {

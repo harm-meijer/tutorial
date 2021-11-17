@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../actions";
-import { createSelectItemWithValue } from "../selectors";
+import { createSelectItemById } from "../selectors";
 
 const Item = memo(function ItemComponent({ id, parentId }) {
-  const item = useSelector(createSelectItemWithValue(id, parentId));
+  const item = useSelector(createSelectItemById(id, parentId));
   const dispatch = useDispatch();
   const addClicked = () => dispatch(add(id));
   const removeClicked = () => dispatch(remove(id, parentId));
