@@ -57,17 +57,4 @@ it("removes all decedents", () => {
     6, 7, 8, 9,
   ]);
   expect(getDecedents(9, testState).sort()).toEqual([]);
-
-  // act(() => {
-  //   render(<Hello />, container);
-  // });
-  // expect(container.textContent).toBe("Hey, stranger");
-  // act(() => {
-  //   render(<Hello name="Jenny" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Jenny!");
-  // act(() => {
-  //   render(<Hello name="Margaret" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Margaret!");
 });
