@@ -18,7 +18,7 @@ const Item = memo(function ItemComponent({ id, parentId }) {
       <button onClick={addClicked}>Add</button>
       <button onClick={removeClicked}>Remove</button>
       {item.value}
-      {/* Change the button Hide / Show according to availability */}
+      {/* Change the button Hide / Show according to availability  */}
       {showChildren && hasChildren > 0 ? (
         <button onClick={hideClicked}>Hide</button>
       ) : hasChildren > 0 ? (
