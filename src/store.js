@@ -2,10 +2,12 @@ import { createStore, compose, applyMiddleware } from "redux";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialState = {
   items: {
-    root: { id: "root", children: [1, 2] },
-    1: { id: 1, children: [3] },
-    2: { id: 2, children: [] },
-    3: { id: 3, children: [] },
+    root: { id: "root", showChildren: true, children: [1, 2] },
+    //Initial state should have true for showChildren when the children Array is not empty.
+    1: { id: 1, showChildren: true, children: [3] },
+    //Initial state should have false for showChildren when the children Array is empty.
+    2: { id: 2, showChildren: false, children: [] },
+    3: { id: 3, showChildren: false, children: [] },
   },
 };
 
@@ -37,8 +39,6 @@ export const getDecedents = (id, items) => {
 
 const store = createStore(
   (state = initialState, { type, payload }) => {
-    //@todo: implement adding or removing a child to
-    //  tree
     if (type === "ADD") {
       const parentId = payload;
       const id = createId(state.items);
@@ -49,9 +49,13 @@ const store = createStore(
           [parentId]: {
             ...state.items[parentId],
             children: state.items[parentId].children.concat(id),
+            //By default, if you add a children, parent's showChildren is true.
+            showChildren: true,
           },
           [id]: {
             id,
+            //By default, if you're a new node you don't have a child, showChildren is false
+            showChildren: false,
             children: [],
           },
         },
@@ -59,7 +63,6 @@ const store = createStore(
     }
     if (type === "REMOVE") {
       const { itemId, parentId } = payload;
-      console.log(`item to be removed: ${itemId}, parent id: ${parentId}`);
       const items = {
         ...removeItems(itemId, state.items),
         [parentId]: {
@@ -74,7 +77,17 @@ const store = createStore(
         items,
       };
     }
-
+    if (type === "TOGGLE_CHILDREN") {
+      const parentId = payload;
+      const items = {
+        ...state.items,
+        [parentId]: {
+          ...state.items[parentId],
+          showChildren: !state.items[parentId].showChildren,
+        },
+      };
+      return { ...state, items };
+    }
     return state;
   },
   initialState,

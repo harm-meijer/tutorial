@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../actions";
+import { add, remove, toggleChildren } from "../actions";
 import { createSelectItemWithValue } from "../selectors";
 
 const Item = memo(function ItemComponent({ id, parentId }) {
@@ -8,17 +8,23 @@ const Item = memo(function ItemComponent({ id, parentId }) {
   const dispatch = useDispatch();
   const addClicked = () => dispatch(add(id));
   const removeClicked = () => dispatch(remove(id, parentId));
-  console.log(id, item, parentId);
+  const hideClicked = () => dispatch(toggleChildren(id));
+
+  const showChildren = item.showChildren;
+  const hasChildren = item.children.length;
   return (
     <div>
       <button onClick={addClicked}>Add</button>
       <button onClick={removeClicked}>Remove</button>
-      {/* @todo: implement value in selector */}
       {item.value}
+      {hasChildren > 0 && (
+        <button onClick={hideClicked}>Toggle Children</button>
+      )}
       <ul>
-        {item.children.map((childId) => (
-          <Item key={childId} id={childId} parentId={id} />
-        ))}
+        {showChildren &&
+          item.children.map((childId) => (
+            <Item key={childId} id={childId} parentId={id} />
+          ))}
       </ul>
     </div>
   );
