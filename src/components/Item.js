@@ -12,6 +12,7 @@ const Item = memo(function ItemComponent({ id, parentId }) {
 
   const showChildren = item.showChildren;
   const hasChildren = item.children.length;
+
   return (
     <div>
       <button onClick={addClicked}>Add</button>
