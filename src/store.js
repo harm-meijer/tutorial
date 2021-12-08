@@ -1,25 +1,29 @@
 import { createStore } from "redux";
-import { ADD, REMOVE } from "./actions";
+import { ADD, REMOVE, TOGGLE_CHILDREN } from "./actions";
 const initialState = {
   items: {
     root: {
       id: "root",
       value: "root",
+      showChildren: true,
       children: [1],
     },
     1: {
       id: 1,
       value: "1 - parent: root",
+      showChildren: true,
       children: [2],
     },
     2: {
       id: 2,
       value: "2 - parent: 1",
+      showChildren: true,
       children: [3],
     },
     3: {
       id: 3,
       value: "3 - parent: 2",
+      showChildren: true,
       children: [],
     },
   },
@@ -65,6 +69,7 @@ const store = createStore(
           [id]: {
             id,
             value: `${id} - parent: ${parentId}`,
+            showChildren: true,
             children: [],
           },
         },
@@ -85,6 +90,18 @@ const store = createStore(
           },
         },
       };
+    }
+    if (type === TOGGLE_CHILDREN) {
+      const id = payload;
+      const showChildren = !state.items[id].showChildren;
+      const items = {
+        ...state.items,
+        [id]: {
+          ...state.items[id],
+          showChildren,
+        },
+      };
+      return { ...state, items };
     }
     return { ...state };
   },
