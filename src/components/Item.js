@@ -23,7 +23,7 @@ const Item = memo(function ItemComponent({
       <button onClick={addClicked}>Add</button>
       <button onClick={removeClicked}>Remove</button>
       {item.value}
-      <AutoCounter />
+      <AutoCounter timerId={itemId} />
       {Boolean(item.children.length) && (
         <button onClick={hideClicked}>
           {item.showChildren ? "-" : "+"}

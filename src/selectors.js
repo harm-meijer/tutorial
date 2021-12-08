@@ -14,3 +14,8 @@ export const createSelectItemWithValue = (
       value: `parent:${parentId} - ${item.id}`,
     })
   );
+export const createSelectTimerById = (id) =>
+  createSelector(
+    [createSelectItemById(id)],
+    ({ start = false, stop = false }) => ({ start, stop })
+  );

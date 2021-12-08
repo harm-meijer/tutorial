@@ -1,5 +1,10 @@
 import { createStore } from "redux";
-import { ADD, REMOVE, TOGGLE_CHILDREN } from "./actions";
+import {
+  ADD,
+  REMOVE,
+  SET_TIMER,
+  TOGGLE_CHILDREN,
+} from "./actions";
 const initialState = {
   items: {
     root: {
@@ -68,7 +73,6 @@ const store = createStore(
           },
           [id]: {
             id,
-            value: `${id} - parent: ${parentId}`,
             showChildren: true,
             children: [],
           },
@@ -102,6 +106,20 @@ const store = createStore(
         },
       };
       return { ...state, items };
+    }
+    if (type === SET_TIMER) {
+      const { id, start, stop } = payload;
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [id]: {
+            ...state.items[id],
+            start,
+            stop,
+          },
+        },
+      };
     }
     return { ...state };
   },
