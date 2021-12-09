@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { ADD, REMOVE, TOGGLE_CHILDREN } from "./actions";
+import { ADD, REMOVE, TOGGLE_CHILDREN, SET_TIMER } from "./actions";
 const initialState = {
   items: {
     root: {
@@ -42,13 +42,9 @@ export const getDecedents = (id, items) => {
   return recur([])(id);
 };
 const removeItems = (removeId, items) => {
-  const idsToRemove = [removeId].concat(
-    getDecedents(removeId, items)
-  );
+  const idsToRemove = [removeId].concat(getDecedents(removeId, items));
   return Object.fromEntries(
-    Object.entries(items).filter(
-      ([key]) => !idsToRemove.includes(Number(key))
-    )
+    Object.entries(items).filter(([key]) => !idsToRemove.includes(Number(key)))
   );
 };
 const store = createStore(
@@ -63,8 +59,7 @@ const store = createStore(
           ...state.items,
           [parentId]: {
             ...state.items[parentId],
-            children:
-              state.items[parentId].children.concat(id),
+            children: state.items[parentId].children.concat(id),
           },
           [id]: {
             id,
@@ -84,9 +79,7 @@ const store = createStore(
           ...items,
           [parentId]: {
             ...items[parentId],
-            children: items[parentId].children.filter(
-              (id) => id !== removeId
-            ),
+            children: items[parentId].children.filter((id) => id !== removeId),
           },
         },
       };
@@ -103,11 +96,25 @@ const store = createStore(
       };
       return { ...state, items };
     }
+    //changes on the store to get the timer and store it on redux state.
+    if (type === SET_TIMER) {
+      const { id, timer } = payload;
+      console.log("set timer action ", id);
+      console.log("set timer action ", timer);
+      const items = {
+        ...state.items,
+        [id]: {
+          ...state.items[id],
+          start: timer.start,
+          stop: timer.stop,
+        },
+      };
+      return { ...state, items };
+    }
     return { ...state };
   },
   initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default store;
