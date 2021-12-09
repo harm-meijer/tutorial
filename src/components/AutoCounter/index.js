@@ -17,6 +17,7 @@ const AutoCounter = React.memo(function AutoCounter(item) {
   const dispatch = useDispatch();
 
   //Creating a selector that passes the itemId and gets back false, false at first time.
+
   const timer = useSelector(createSelectTimerById(itemId));
 
   console.log(`timer for ${itemId}:`, timer);
