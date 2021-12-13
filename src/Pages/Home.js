@@ -18,6 +18,7 @@ function Home(props) {
     }
   );
 */
+
   const [getCountries, { loading, data, error }] = useLazyQuery(
     GET_SPACEX_LAUNCHES_SINCE
   );
