@@ -26,6 +26,19 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+      "graphql/template-strings": [
+        "error",
+        {
+          "env": "apollo",
+          "schemaJsonFilepath": "./schema.json"
+        }
+      ]
+    },
+    "plugins": [
+      "graphql"
     ]
   },
   "browserslist": {
@@ -41,7 +54,8 @@
     ]
   },
   "devDependencies": {
-    "msw": "^0.36.3"
+    "msw": "^0.36.3",
+    "eslint-plugin-graphql": "^4.0.0"
   },
   "msw": {
     "workerDirectory": "public"
